@@ -119,7 +119,7 @@ def _sample_points(
                     f"{positions.shape} while {(num_points, num_dimensions)} was expected "
                     f"(num_{sampled_object_name}, num_dimensions)."
                 )
-        return positions
+        return positions.reshape(num_points, num_dimensions)
 
     if not isinstance(positions, Callable):
         try:
