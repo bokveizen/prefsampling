@@ -24,7 +24,7 @@ extensions = [
     "sphinx.ext.napoleon",
     "sphinx.ext.viewcode",
     "sphinx.ext.autodoc",
-    "sphinx.ext.imgmath",
+    "sphinx.ext.mathjax",
 ]
 
 add_module_names = False
@@ -57,7 +57,7 @@ html_theme = "sphinx_book_theme"
 
 html_title = "PrefSampling"
 html_theme_options = {
-    "repository_url": "https://github.com/COMSOC-Community/prefsampling",
+    "repository_url": "https://github.com/bokveizen/prefsampling",
     "use_repository_button": True,
     "navigation_with_keys": True,
 }

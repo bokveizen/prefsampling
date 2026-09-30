@@ -1,44 +1,31 @@
-
-name: publish
+name: Build distributions
 
 on:
-  release:
-    types: [created]
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
-    branches: [ "main" ]
+
+permissions:
+  contents: read
 
 jobs:
-  deploy:
+  package:
     runs-on: ubuntu-latest
-
     steps:
-
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
         with:
-          python-version: '3.12'
-
-      - name: Install Python dependencies
+          python-version: "3.13"
+      - run: python -m pip install build
+      - run: python -m build
+      - name: Smoke test installed wheel outside checkout
         run: |
-          python -m pip install --upgrade pip
-          pip install build flake8
-          pip install .
-          pip install .[dev]
-
-      - name: Build
-        run: |
-          python -m build
-
-#      - name: Publish distribution to Test PyPI
-#        uses: pypa/gh-action-pypi-publish@release/v1
-#        with:
-#          password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-#          repository_url: https://test.pypi.org/legacy/
-
-      - name: Publish distribution to PyPI
-        uses: pypa/gh-action-pypi-publish@release/v1
+          python -m pip install dist/*.whl
+          cd "$(mktemp -d)"
+          python -c "import prefsampling; from prefsampling.ordinal import impartial; print(prefsampling.__version__); assert len(impartial(3, 4, seed=42)) == 3"
+      - uses: actions/upload-artifact@v7
         with:
-          password: ${{ secrets.PYPI }}
+          name: distributions
+          path: dist/*

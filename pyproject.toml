@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "prefsampling"
-version = "0.1.24"
+version = "0.1.25.dev0"
 description = "Algorithms to sample preferences of all kinds."
 authors = [
   { name = "Simon Rey", email = "reysimon@orange.fr" },
@@ -16,25 +16,27 @@ classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: GNU General Public License v3 or later (GPLv3+)",
     "Operating System :: OS Independent",
-    "Programming Language :: Python :: 3.7",
-    "Programming Language :: Python :: 3.8",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
 ]
-requires-python = ">=3.7"
+requires-python = ">=3.10"
 dependencies = [
-    "numpy",
+    "numpy>=1.21.6",
 ]
 
 [project.optional-dependencies]
+test = ["coverage", "flake8"]
+docs = ["Sphinx>=7", "sphinx-book-theme"]
+validation = ["matplotlib", "pandas", "seaborn", "scipy"]
 dev = [
     "coverage",
-    "Sphinx",
+    "flake8",
+    "build",
+    "Sphinx>=7",
     "sphinx-book-theme",
-    "sphinxcontrib-napoleon",
-    "unittest2",
     "matplotlib",
     "pandas",
     "seaborn",
@@ -42,5 +44,6 @@ dev = [
 ]
 
 [project.urls]
-"Homepage" = "https://github.com/COMSOC-Community/prefsampling"
-"Bug Tracker" = "https://github.com/COMSOC-Community/prefsampling/issues"
+"Homepage" = "https://github.com/bokveizen/prefsampling"
+"Bug Tracker" = "https://github.com/bokveizen/prefsampling/issues"
+"Upstream" = "https://github.com/COMSOC-Community/prefsampling"
